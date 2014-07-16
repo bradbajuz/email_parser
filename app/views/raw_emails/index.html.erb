@@ -6,11 +6,11 @@
 
 <div class="row" "pull-right">
   <div class="col-md-8">
-    <% for raw_email in @raw_emails %>
-      <h2>Raw Email #<%= raw_email.id %></h2>
-      <%= link_to "Show", raw_email, class: 'btn btn-info' %>
-      <%= link_to "Edit", edit_raw_email_path(raw_email) , class: 'btn btn-warning' %>
-      <%= link_to "Delete", raw_email, class: 'btn btn-danger', confirm: 'Are you sure?', method: :delete %>
+    <% @raw_emails.each do |raw| %>
+      <h2>Raw Email #<%= raw.id %></h2>
+      <%= link_to "Show", raw, class: 'btn btn-info' %>
+      <%= link_to "Edit", edit_raw_email_path(raw) , class: 'btn btn-warning' %>
+      <%= link_to "Delete", raw, class: 'btn btn-danger', confirm: 'Are you sure?', method: :delete %>
     <% end %>
   </div>
 </div>
