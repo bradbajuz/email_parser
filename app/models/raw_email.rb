@@ -2,88 +2,105 @@ class RawEmail < ActiveRecord::Base
 
   # Regex to parse email
 
-  MESSAGE_ID = /Message-ID: [^>]*>/i
-  DATE = /((Date: [^\+|\-]+[\+|\-\d]+))/m
-  TO = /(To: .*?[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}+(>|)(|, ))/i
-  AUTHENTICATION_RESULTS = /Authentication-Results: (.*)/
-  FROM = /From: [^>]+>(|, )/i
-  RETURN_PATH = /Return-Path: [^>]+>(|, )/i
-  CONTENT_TYPE = /Content-Type: [^=]+=[^\s]+/i
-  CONTENT_TRANSFER_ENCODING = /Content-transfer-encoding: (base64|quoted-printable|8bit|binary|x-token|7bit)/i
-  MIME_VERSION = /Mime-version: \d\.\d/i
-  DKIM_SIGNATURE = /DKIM-Signature: [^>]*[^=]*==/i
-  REFERENCES = /References: [^>]+>[^>]+>/i
-  SUBJECT = /Subject: [^\\]*/m
-  RECEIVED_FROM = /Received: from [^;]+;[^-|\+]+[+\|-]+\d+/i
-  RECEIVED_BY = /Received: by [^;]+;[^)]+\)/i
-  RECEIVED_SPF = /Received-SPF: pass [^;]+;/i
-  BODY = /Content-Type: [\s\S\w\W\b\D\d]*\n/i
+  CRLF        = /\r\n/
+  WSP         = /[\x9\x20]/
+  FIELD_NAME    = /[\x21-\x39\x3b-\x7e]+/
+  FIELD_BODY    = /.+/m
+  FIELD_SPLIT   = /^(#{FIELD_NAME})\s*:\s*(#{FIELD_BODY})?$/
+  HEADER_SPLIT  = /#{CRLF}(?!#{WSP})/
+  HEADER_BODY_SPLIT = /#{CRLF}#{WSP}*#{CRLF}/m
 
-  def text_input
-    @text = raw_email.to_s
+  def self.parse(raw_email)
+    parsed_email = Hash.new
+
+    fields, body = raw_email.split(HEADER_BODY_SPLIT, 2)
+    header_fields = fields.split(HEADER_SPLIT)
+    parsed_email["Header"] = parse_headers(header_fields)
+
+    if (!parsed_email["Header"]["Content-Type"].nil?)
+      content_type = parsed_email["Header"]["Content-Type"]
+    else
+      content_type = "text/plain"
+    end
+
+    parsed_email["Body"] = parse_body(content_type, body)
+
+    return parsed_email
   end
 
-  def parse_message_id
-    message_id = @text.match(MESSAGE_ID)
-  end 
+  private 
+  
+  # Returns a new hash of the header fields
+  def self.parse_headers(header_fields)
+    headers = Hash.new
+    if (!header_fields.nil?)
+      header_fields.each do |field|
+        s = field.split(FIELD_SPLIT)
+        if (!s[1].nil?)
+          field_name = s[1]
+          headers[field_name] = s[2]
+        end
+      end
+    end
 
-  def parse_date
-    date = @text.match(DATE)
+    return headers
   end
 
-  def parse_to
-    to = @text.match(TO)
+  def self.parse_body(content_type,raw_body)
+    mime = parse_mime_type(content_type)
+
+    new_body = String.new
+    if (mime["Type"] == "multipart")
+      boundary = parse_boundary(content_type)
+      new_body = parse_multipart_body(boundary, raw_body)
+    else 
+      new_body = raw_body
+    end
+
+    return new_body
   end
 
-  def parse_authentication_results
-    user_agent = @text.match(AUTHENTICATION_RESULTS)
+  def self.parse_multipart_body(boundary, raw_body)
+    new_body = String.new
+
+    parts = raw_body.split(/(:\A|\r\n)--#{boundary}(?=(?:--)?\s*$)/)
+
+    parts.each do |part|
+      # Can save these parts for use elsewhere
+      # For the simple purpose of this, just append to body.
+      fields, body = part.split(HEADER_BODY_SPLIT, 2)
+
+      # Give a default content type
+      part_content_type = "text/plain"
+
+      if (!fields.nil?)
+        headers = parse_headers(fields.split(HEADER_SPLIT))
+        if (!headers["Content-Type"].nil?)
+          part_content_type = headers["Content-Type"]
+        end
+      end
+      if (!body.nil?)
+        new_body += parse_body(part_content_type, body)
+      end
+    end
+
+    return new_body
   end
 
-  def parse_from
-    from = @text.match(FROM)
+  def self.parse_boundary(content_type)
+    boundary_equation = content_type.match(/boundary=[\D a-zA-Z0-9]+/)[0]
+    boundary = boundary_equation.split("=")[1]
+
+    return boundary
   end
 
-  def parse_return_path
-    return_path = @text.match(RETURN_PATH)
-  end
+  def self.parse_mime_type(content_type)
+    match = content_type.match(/^[a-zA-Z]+\/[a-zA-Z]+;?/)[0]
 
-  def parse_content_type
-    @content_type = @text.match(CONTENT_TYPE)
-  end
+    m = match.scan(/[a-zA-Z]+/)
+    type = m[0]
+    subtype = m[1]
 
-  def parse_content_transfer_encoding
-    content_transfer_encoding = @text.match(CONTENT_TRANSFER_ENCODING)
-  end
-
-  def parse_mime_version
-    mime_version = @text.match(MIME_VERSION)
-  end
-
-  def parse_dkim_signature
-    parse_dkim_signature = @text.match(DKIM_SIGNATURE)
-  end
-
-  def parse_references
-    parse_references = @text.match(REFERENCES)
-  end
-
-  def parse_subject
-    subject = @text.split('\r').to_s.match(SUBJECT)
-  end
-
-  def parse_received_from
-    parse_received_from = @text.match(RECEIVED_FROM)
-  end
-
-  def parse_received_by
-    parse_received_by = @text.match(RECEIVED_BY)
-  end
-
-  def parse_received_spf
-    parse_received_spf = @text.match(RECEIVED_SPF)
-  end
-
-  def parse_body
-     @parse_body = @text.match(BODY)
+    return Hash["Type", m[0], "Subtype", m[1]]
   end
 end

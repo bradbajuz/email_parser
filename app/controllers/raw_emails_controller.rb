@@ -21,6 +21,7 @@ class RawEmailsController < ApplicationController
 
   def show
     @raw_email = RawEmail.find(params[:id])
+    @parsed_email = RawEmail::parse(@raw_email.raw_email)
   end
 
   def edit
