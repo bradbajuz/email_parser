@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.1.1'
+gem 'rails', '4.1.8'
 gem 'pg'
 
 gem 'bootstrap-sass', '~> 3.1.1'
@@ -10,6 +10,11 @@ gem 'coffee-rails', '~> 4.0.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
 
 group :doc do
   gem 'sdoc', require: false
