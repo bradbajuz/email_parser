@@ -14,6 +14,7 @@ class RawEmail < ActiveRecord::Base
     parsed_email = Hash.new
 
     fields, body = raw_email.split(HEADER_BODY_SPLIT, 2)
+    body ||= ""
     header_fields = fields.split(HEADER_SPLIT)
     parsed_email["Header"] = parse_headers(header_fields)
 
@@ -63,7 +64,7 @@ class RawEmail < ActiveRecord::Base
   def self.parse_multipart_body(boundary, raw_body)
     new_body = String.new
 
-    parts = raw_body.split(/(:\A|\r\n)--#{boundary}(?=(?:--)?\s*$)/)
+    parts = raw_body.try(:split, /(:\A|\r\n)--#{boundary}(?=(?:--)?\s*$)/)
 
     parts.each do |part|
       # Can save these parts for use elsewhere
