@@ -64,7 +64,7 @@ class RawEmail < ActiveRecord::Base
   def self.parse_multipart_body(boundary, raw_body)
     new_body = String.new
 
-    parts = raw_body.try(:split, /(:\A|\r\n)--#{boundary}(?=(?:--)?\s*$)/)
+    parts = raw_body.split(/(:\A|\r\n)--#{boundary}(?=(?:--)?\s*$)/)
 
     parts.each do |part|
       # Can save these parts for use elsewhere

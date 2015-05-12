@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20140713011131) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "raw_emails", force: true do |t|
+  create_table "raw_emails", force: :cascade do |t|
     t.text     "raw_email"
     t.datetime "created_at"
     t.datetime "updated_at"
