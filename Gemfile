@@ -3,6 +3,7 @@ ruby '2.3.3'
 
 gem 'rails', '~> 4.2.7'
 gem 'pg'
+gem 'puma'
 
 gem 'bootstrap-sass', '~> 3.3.4.1'
 gem 'sass-rails', '~> 5.0.3'
@@ -19,6 +20,10 @@ group :development do
   gem 'binding_of_caller'
   gem 'byebug'
   gem 'web-console', '~> 2.1.2'
+end
+
+group :production do
+  gem 'rails_12factor'
 end
 
 group :doc do

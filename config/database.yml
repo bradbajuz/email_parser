@@ -78,8 +78,14 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+# production:
+#   <<: *default
+#   database: email_parser_production
+#   username: email_parser
+#   password: <%= ENV['EMAIL_PARSER_DATABASE_PASSWORD'] %>
+
 production:
-  <<: *default
-  database: email_parser_production
-  username: email_parser
-  password: <%= ENV['EMAIL_PARSER_DATABASE_PASSWORD'] %>
+  adapter: postgresql
+  url: <%= ENV['DATABASE_URL'] %> # Created when linking database to app
+  encoding: unicode
+  pool: 5
