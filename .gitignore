@@ -20,3 +20,6 @@
 
 # Ignore RubyMine folder
 /.idea
+
+# Ignore deploy script
+/deploy_dokku_app.sh
