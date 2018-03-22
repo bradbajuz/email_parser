@@ -1,4 +1,4 @@
-class RawEmail < ActiveRecord
+class RawEmail < ApplicationRecord
 
   # Regex to parse email
 
