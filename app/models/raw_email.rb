@@ -1,4 +1,4 @@
-class RawEmail < ActiveRecord::Base
+class RawEmail < ActiveRecord
 
   # Regex to parse email
 
@@ -29,8 +29,8 @@ class RawEmail < ActiveRecord::Base
     return parsed_email
   end
 
-  private 
-  
+  private
+
   # Returns a new hash of the header fields
   def self.parse_headers(header_fields)
     headers = Hash.new
@@ -54,7 +54,7 @@ class RawEmail < ActiveRecord::Base
     if (mime["Type"] == "multipart")
       boundary = parse_boundary(content_type)
       new_body = parse_multipart_body(boundary, raw_body)
-    else 
+    else
       new_body = raw_body
     end
 
