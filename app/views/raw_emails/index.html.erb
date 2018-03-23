@@ -1,14 +1,16 @@
-<h1 class="display-5">
+<h1>
   Raw Email Parser
   <%= link_to 'New', new_raw_email_path, class: 'btn btn-primary' %>
 </h1>
+
+<hr/>
+
 <div class="row">
   <% @raw_emails.each do |raw| %>
     <div class="col">
       <div class="card" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title">Raw Email #<%= raw.id %></h5>
-          <p class="card-text">Dingus</p>
           <%= link_to 'Show', raw, class: 'btn btn-info' %>
           <%= link_to 'Edit', edit_raw_email_path(raw), class: 'btn btn-warning' %>
           <%= link_to 'Delete', raw, class: 'btn btn-danger', confirm: 'Are you sure?', method: :delete %>
