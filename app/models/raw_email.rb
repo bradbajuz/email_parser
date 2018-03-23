@@ -48,7 +48,6 @@ class RawEmail < ApplicationRecord
   def self.parse_body(content_type, raw_body)
     mime = parse_mime_type(content_type)
 
-    new_body = ''
     if mime['Type'] == 'multipart'
       boundary = parse_boundary(content_type)
       new_body = parse_multipart_body(boundary, raw_body)
@@ -100,6 +99,6 @@ class RawEmail < ApplicationRecord
     type = m[0]
     subtype = m[1]
 
-    Hash['Type', m[0], 'Subtype', m[1]]
+    Hash['Type', type, 'Subtype', subtype]
   end
 end
