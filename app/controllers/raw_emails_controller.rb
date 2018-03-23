@@ -11,10 +11,10 @@ class RawEmailsController < ApplicationController
     @raw_email = RawEmail.new(raw_email_params)
 
     if @raw_email.save
-      flash[:notice] = "Successfully created raw email"
+      flash[:notice] = 'Successfully created raw email'
       redirect_to @raw_email
     else
-      flash[:error] = "Error saving raw email"
+      flash[:error] = 'Error saving raw email'
       render 'new'
     end
   end
@@ -34,7 +34,7 @@ class RawEmailsController < ApplicationController
     if @raw_email.update_attributes(raw_email_params)
       redirect_to @raw_email
     else
-      flash[:error] = "Error updating raw email. Please try again."
+      flash[:error] = 'Error updating raw email. Please try again.'
       render :edit
     end
   end
@@ -42,7 +42,7 @@ class RawEmailsController < ApplicationController
   def destroy
     @raw_email = RawEmail.find(params[:id])
     @raw_email.destroy
-    redirect_to raw_emails_path, notice: "Successfully deleted raw email"
+    redirect_to raw_emails_path, notice: 'Successfully deleted raw email'
   end
 
   def raw_email_params
