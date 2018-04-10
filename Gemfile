@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 ruby '2.5.0'
 
-gem 'rails', '~> 5.1.5'
+gem 'rails', '~> 5.2'
 gem 'pg'
 gem 'puma'
+gem 'bootsnap', require: false
 
 gem 'bootstrap', '~> 4.0.0'
 gem 'sass-rails', '~> 5.0'
