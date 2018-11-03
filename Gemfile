@@ -6,7 +6,7 @@ gem 'pg'
 gem 'puma'
 gem 'bootsnap', require: false
 
-gem 'bootstrap', '~> 4.0.0'
+gem 'bootstrap', '~> 4.1.3'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
