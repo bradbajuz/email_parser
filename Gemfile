@@ -7,7 +7,7 @@ gem 'puma'
 gem 'bootsnap', require: false
 
 gem 'bootstrap', '~> 4.1.3'
-gem 'sass-rails', '~> 5.0'
+gem 'sassc-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
