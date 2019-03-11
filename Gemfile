@@ -1,12 +1,12 @@
 source 'https://rubygems.org'
-ruby '2.5.3'
+ruby '2.6.1'
 
 gem 'rails', '~> 5.2'
 gem 'pg'
 gem 'puma'
 gem 'bootsnap', require: false
 
-gem 'bootstrap', '~> 4.1.3'
+gem 'bootstrap', '>= 4.3.1'
 gem 'sassc-rails'
 gem 'uglifier', '>= 1.3.0'
 gem 'jquery-rails'
