@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.6.1'
+ruby '2.6.2'
 
 gem 'rails', '~> 5.2'
 gem 'pg'
@@ -19,8 +19,8 @@ end
 
 group :development do
   # Debugging
-  gem 'debase', '>= 0.2.2.beta14'
-  gem 'ruby-debug-ide'
+  gem 'debase', '>= 0.2.3.beta5'
+  gem 'ruby-debug-ide', '>= 0.7.0.beta7'
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
