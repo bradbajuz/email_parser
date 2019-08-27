@@ -23,3 +23,10 @@
 
 # Ignore deploy script
 /deploy_dokku_app.sh
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

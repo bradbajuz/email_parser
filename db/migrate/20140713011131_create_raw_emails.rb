@@ -1,4 +1,4 @@
-class CreateRawEmails < ActiveRecord::Migration[5.1]
+class CreateRawEmails < ActiveRecord::Migration[6.0]
   def change
     create_table :raw_emails do |t|
       t.text :raw_email
