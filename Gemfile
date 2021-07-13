@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.1'
+ruby '3.0.2'
 
 gem 'rails', '~> 6.0.1'
 gem 'pg'
@@ -23,8 +23,8 @@ end
 
 group :development do
   # Debugging
-  gem 'debase', '>= 0.2.3.beta5'
-  gem 'ruby-debug-ide', '>= 0.7.0.beta7'
+  gem 'debase', '>= 0.2.5.beta2'
+  gem 'ruby-debug-ide', '>= 0.7.0'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen'
