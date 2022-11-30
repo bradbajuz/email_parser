@@ -22,7 +22,7 @@ end
 
 group :development do
   # Debugging
-  gem 'debase', '>= 0.2.5.beta2'
+  gem 'debase'
   gem 'ruby-debug-ide', '>= 0.7.0'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
