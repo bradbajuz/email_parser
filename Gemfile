@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.4'
+ruby '3.1.3'
 
 gem 'rails', '~> 7.0.0'
 gem 'sprockets-rails'
@@ -17,7 +17,6 @@ gem 'turbo-rails'
 group :development do
   # Debugging
   gem 'debase'
-  gem 'ruby-debug-ide'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console'
   gem 'rubocop'

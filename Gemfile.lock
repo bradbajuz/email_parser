@@ -187,8 +187,6 @@ GEM
       parser (>= 3.1.1.0)
     rubocop-shopify (2.10.1)
       rubocop (~> 1.35)
-    ruby-debug-ide (0.7.3)
-      rake (>= 0.8.1)
     ruby-progressbar (1.11.0)
     rubyzip (2.3.2)
     selenium-webdriver (4.7.1)
@@ -243,7 +241,6 @@ DEPENDENCIES
   rails (~> 7.0.0)
   rubocop
   rubocop-shopify
-  ruby-debug-ide
   selenium-webdriver
   sprockets-rails
   turbo-rails
@@ -252,7 +249,7 @@ DEPENDENCIES
   webdrivers
 
 RUBY VERSION
-   ruby 3.0.4p208
+   ruby 3.1.3p185
 
 BUNDLED WITH
    2.3.23
