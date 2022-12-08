@@ -1,0 +1,16 @@
+$font-family-sans-serif: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif !default;
+
+@import "bootstrap/scss/bootstrap";
+
+html {
+  --tw-bg-opacity: 1;
+  background-color: rgba(243, 244, 246, var(--tw-bg-opacity)) !important;
+}
+
+body {
+  //text-rendering: optimizeLegibility;
+  --tw-bg-opacity: 1;
+  background-color: rgba(243, 244, 246, var(--tw-bg-opacity)) !important;
+  //position: relative;
+  padding-top: 70px;
+}

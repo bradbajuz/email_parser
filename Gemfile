@@ -4,14 +4,15 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.0.4'
 
 gem 'rails', '~> 7.0.0'
+gem 'sprockets-rails'
 gem 'pg'
 gem 'puma', '~> 5'
 gem "bootsnap", require: false
 
-gem 'bootstrap', '~> 4.6.0'
-gem 'sass-rails', '>= 6'
-gem 'jquery-rails'
-gem 'turbolinks', '~> 5'
+gem 'jsbundling-rails'
+gem 'cssbundling-rails'
+
+gem 'turbo-rails'
 
 group :development do
   # Debugging
