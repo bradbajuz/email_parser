@@ -10,7 +10,6 @@ gem "bootsnap", require: false
 
 gem 'bootstrap', '~> 4.6.0'
 gem 'sass-rails', '>= 6'
-gem 'webpacker', '~> 4.0'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 
