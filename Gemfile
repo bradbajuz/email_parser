@@ -13,7 +13,6 @@ gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 4.0'
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
-gem 'responders'
 
 group :development do
   # Debugging
@@ -28,7 +27,6 @@ end
 group :development, :test do
   # Call 'debug' anywhere in the code to stop execution and get a debugger console
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
-
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara'
   gem 'selenium-webdriver'

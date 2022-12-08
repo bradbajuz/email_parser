@@ -183,9 +183,6 @@ GEM
     regexp_parser (2.6.1)
     reline (0.3.1)
       io-console (~> 0.5)
-    responders (3.0.1)
-      actionpack (>= 5.0)
-      railties (>= 5.0)
     rexml (3.2.5)
     rubocop (1.40.0)
       json (~> 2.3)
@@ -269,7 +266,6 @@ DEPENDENCIES
   pg
   puma (~> 5)
   rails (~> 7.0.0)
-  responders
   rubocop
   rubocop-shopify
   ruby-debug-ide
