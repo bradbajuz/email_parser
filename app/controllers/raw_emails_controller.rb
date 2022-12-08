@@ -1,4 +1,6 @@
 class RawEmailsController < ApplicationController
+  before_action :set_raw_email, only: [:show, :edit, :update, :destroy]
+
   def index
     @raw_emails = RawEmail.all
   end
@@ -10,39 +12,44 @@ class RawEmailsController < ApplicationController
   def create
     @raw_email = RawEmail.new(raw_email_params)
 
-    if @raw_email.save
-      flash[:notice] = 'Successfully created raw email'
-      redirect_to @raw_email
-    else
-      flash[:error] = 'Error saving raw email'
-      render 'new'
+    respond_to do |format|
+      if @raw_email.save
+        format.html { redirect_to(@raw_email, notice: 'Successfully created raw email') }
+      else
+        format.html { render(:new, status: :unprocessable_entity) }
+      end
     end
   end
 
   def show
-    @raw_email = RawEmail.find(params[:id])
     @parsed_email = RawEmail.parse(@raw_email.raw_email)
   end
 
-  def edit
-    @raw_email = RawEmail.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @raw_email = RawEmail.find(params[:id])
-
-    if @raw_email.update_attributes(raw_email_params)
-      redirect_to @raw_email
-    else
-      flash[:error] = 'Error updating raw email. Please try again.'
-      render :edit
+    respond_to do |format|
+      if @raw_email.update(raw_email_params)
+        format.html { redirect_to(@raw_email, notice: 'Raw Email was successfully updated.') }
+        # raise params.inspect
+      else
+        format.html { render(:edit, status: :unprocessable_entity) }
+      end
     end
   end
 
   def destroy
-    @raw_email = RawEmail.find(params[:id])
     @raw_email.destroy
-    redirect_to raw_emails_path, notice: 'Successfully deleted raw email'
+    respond_to do |format|
+      format.html { redirect_to(raw_emails_path, notice: 'Successfully deleted raw email') }
+    end
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_raw_email
+    @raw_email = RawEmail.find_by(id: params[:id])
   end
 
   def raw_email_params
